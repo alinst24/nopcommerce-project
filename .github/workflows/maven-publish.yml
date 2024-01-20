@@ -1,0 +1,43 @@
+# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
+# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
+
+name: Maven Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      browser:
+        description: 'Choose browser from the following: chrome, edge, firefox'
+        required: true
+        default: 'chrome'
+      suite:
+        description: 'Choose suite from the following: RegressionSuite'
+        required: true
+        default: 'RegressionSuite'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+          settings-path: ${{ github.workspace }} # location for the settings.xml file
+
+      - name: Build project and run tests
+        run: mvn clean install -Dcicd=true -Dbrowser=${{ github.event.inputs.browser }} -DsuiteXmlFile=Suites/${{ github.event.inputs.suite }} -PCustomSuite
+
+      - name: Publish regression logs
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: RegressionLogs
+          path: target/logs/output.log

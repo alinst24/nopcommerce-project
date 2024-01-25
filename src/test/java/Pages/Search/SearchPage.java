@@ -210,16 +210,5 @@ public class SearchPage extends BasePage {
         LoggerUtility.info("The user clicks on search button.");
         elementMethods.validatePresence(noProductFoundMessage);
         LoggerUtility.info("The message shown has been validated: " +searchObject.getNoProductFoundMessage());
-
-
-
-
-    } // sa am un text in search si sa il sterg , apoi sa fac advancedsearch
-
-//    public void advancedSearchInterract(){
-//        elementMethods.clickElement(checkboxAdvancedSearch);
-//        LoggerUtility.info("The user ticks the advanced search checkbox.");
-//
-//    }
-
+    }
 }

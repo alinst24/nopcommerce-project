@@ -1,5 +1,7 @@
 package ObjectData;
 
+import org.checkerframework.checker.units.qual.K;
+
 import java.util.HashMap;
 
 public class SearchObject {
@@ -11,6 +13,44 @@ public class SearchObject {
     private String product2Title;
 
     private String product3Title;
+
+    private String url;
+
+    private String searchAlertValue;
+    private String invalidSearch;
+    private String noProductFoundMessage;
+
+    public String getNoProductFoundMessage() {
+        return noProductFoundMessage;
+    }
+
+    public void setNoProductFoundMessage(String noProductFoundMessage) {
+        this.noProductFoundMessage = noProductFoundMessage;
+    }
+
+    public String getInvalidSearch() {
+        return invalidSearch;
+    }
+
+    public void setInvalidSearch(String invalidSearch) {
+        this.invalidSearch = invalidSearch;
+    }
+
+    public String getSearchAlertValue() {
+        return searchAlertValue;
+    }
+
+    public void setSearchAlertValue(String searchAlertValue) {
+        this.searchAlertValue = searchAlertValue;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getProduct3Title() {
         return product3Title;
@@ -62,6 +102,18 @@ public class SearchObject {
                     break;
                 case "product3Title":
                     setProduct3Title(testData.get(Key));
+                    break;
+                case "url":
+                    setUrl(testData.get(Key));
+                    break;
+                case "searchAlertValue":
+                    setSearchAlertValue(testData.get(Key));
+                    break;
+                case "invalidSearch":
+                    setInvalidSearch(testData.get(Key));
+                    break;
+                case "noProductFoundMessage":
+                    setNoProductFoundMessage(testData.get(Key));
                     break;
             }
         }

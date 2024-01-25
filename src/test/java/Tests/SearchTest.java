@@ -13,10 +13,9 @@ public class SearchTest extends Hooks {
 
         SearchObject searchObject = new SearchObject(testData);
 
-        HomePage homePage = new HomePage(getDriver());
-        homePage.searchBox(searchObject);
-
         SearchPage searchPage = new SearchPage(getDriver());
+        searchPage.validateSeachesSuggestions(searchObject);
+        searchPage.searchBox(searchObject);
         searchPage.validateSearches();
         searchPage.selectProduct1();
         searchPage.validateProduct1(searchObject);
@@ -24,5 +23,10 @@ public class SearchTest extends Hooks {
         searchPage.validateProduct2(searchObject);
         searchPage.selectProduct3();
         searchPage.validateProduct3(searchObject);
+        searchPage.accessURL(searchObject);
+        searchPage.validateEmptySearch(searchObject);
+        searchPage.validateInvalidSearch(searchObject);
+        searchPage.deleteSearch(searchObject);
+        searchPage.validateAdvancedSearch(searchObject);
     }
 }

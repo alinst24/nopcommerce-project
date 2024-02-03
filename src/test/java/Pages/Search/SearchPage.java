@@ -24,7 +24,8 @@ public class SearchPage extends BasePage {
     @FindBy(css = ".item-box")
     private WebElement productElement;
 
-    @FindBy(xpath = "//h2/a[contains(text(),'5.0 Lollipop')]")           // identificare dupa textul hardcodat(lung),cautand doar 2 cuvinte din acesta, dar am coborat din <h2 pentru ca imi dadea 1/2 din cauza la recent searches
+    @FindBy(xpath = "//h2/a[contains(text(),'5.0 Lollipop')]")
+    // identificare dupa textul hardcodat(lung),cautand doar 2 cuvinte din acesta, dar am coborat din <h2 pentru ca imi dadea 1/2 din cauza la recent searches
     private WebElement product1;
 
     @FindBy(xpath = "//h2/a[contains(text(),'Mini Blue')]")
@@ -62,22 +63,6 @@ public class SearchPage extends BasePage {
 
     @FindBy(id = "isc")
     private WebElement checkboxAutomaticallySearchSubCategory;
-
-    @FindBy(id = "mid")
-    private WebElement manufacturerSearch;
-
-    @FindBy(id = "sid")
-    private WebElement checkboxSearchInProductDescription;
-
-    @FindBy(id = "products-orderby")
-    private WebElement sortBy;
-
-    @FindBy(xpath = "//a[@title='List']")
-    private WebElement listView;
-
-    @FindBy(xpath = "//a[@title='Grid']")
-    private WebElement gridView;
-
     @FindBy(css = "button[type='submit']")
     private WebElement searchButton;
 
@@ -99,14 +84,14 @@ public class SearchPage extends BasePage {
     @FindBy(css = "div[class='no-result']")
     private WebElement noProductFoundMessage;
 
-    public void validateSeachesSuggestions(SearchObject searchObject){
+    public void validateSeachesSuggestions(SearchObject searchObject) {
         elementMethods.clickElement(searchBox);
         LoggerUtility.info("The user is clicking on search box.");
-        elementMethods.fillElement(searchBox, searchObject.getSearchBoxInput(),firstSearchResult);
+        elementMethods.fillElement(searchBox, searchObject.getSearchBoxInput(), firstSearchResult);
         LoggerUtility.info("The user enters the value: " + searchObject.getSearchBoxInput() + " then clicks on the first result of the suggestions.");
-        elementMethods.validateMessage(firstSearchResultTitle,searchObject.getProduct1Title());
+        elementMethods.validateMessage(firstSearchResultTitle, searchObject.getProduct1Title());
         LoggerUtility.info("The user product's title has been validated.");
-        elementMethods.clickBack();
+        pageElements.clickBack();
         LoggerUtility.info("The user returns to previous page.");
     }
 
@@ -118,7 +103,7 @@ public class SearchPage extends BasePage {
     }
 
     public void validateSearches() {
-        elementMethods.validateTable(".product-grid .item-box",3);
+        elementMethods.validateTable(".product-grid .item-box", 3);
         LoggerUtility.info("The results of search have been validated with success.");
     }
 
@@ -127,46 +112,46 @@ public class SearchPage extends BasePage {
         LoggerUtility.info("The user clicks on the first product of the results.");
     }
 
-    public void validateProduct1(SearchObject searchObject){
+    public void validateProduct1(SearchObject searchObject) {
         elementMethods.validateMessage(product1Title, searchObject.getProduct1Title());
         LoggerUtility.info("The product's name has been validated with success.");
-        elementMethods.validatePresence(product1image);
+        elementMethods.validatePresenceElement(product1image);
         LoggerUtility.info("The image of this product has been validated with success.");
-        elementMethods.clickBack();
+        pageElements.clickBack();
         LoggerUtility.info("The user returns to previous page.");
     }
 
-    public void selectProduct2(){
+    public void selectProduct2() {
         elementMethods.clickElement(product2);
         LoggerUtility.info("The user clicks on the second product of the results.");
     }
 
-    public void validateProduct2(SearchObject searchObject){
+    public void validateProduct2(SearchObject searchObject) {
         elementMethods.validateMessage(product2Title, searchObject.getProduct2Title());
         LoggerUtility.info("The product's name has been validated with success.");
-        elementMethods.validatePresence(product2image);
+        elementMethods.validatePresenceElement(product2image);
         LoggerUtility.info("The image of this product has been validated with success.");
-        elementMethods.clickBack();
+        pageElements.clickBack();
         LoggerUtility.info("The user returns to previous page.");
     }
 
-    public void selectProduct3(){
+    public void selectProduct3() {
         elementMethods.clickElement(product3);
         LoggerUtility.info("The user clicks on the third product of the results.");
     }
 
-    public void validateProduct3(SearchObject searchObject){
-        elementMethods.validateMessage(product3Title,searchObject.getProduct3Title());
+    public void validateProduct3(SearchObject searchObject) {
+        elementMethods.validateMessage(product3Title, searchObject.getProduct3Title());
         LoggerUtility.info("The product's name has been validated with success.");
-        elementMethods.validatePresence(product3image);
+        elementMethods.validatePresenceElement(product3image);
         LoggerUtility.info("The image of this product has been validated with success.");
-        elementMethods.clickBack();
+        pageElements.clickBack();
         LoggerUtility.info("The user returns to previous page.");
     }
 
-    public void accessURL(SearchObject searchObject){
-        elementMethods.accesUrl(searchObject.getUrl());
-        LoggerUtility.info("The user accesses following URL: "+searchObject.getUrl() +" .");
+    public void accessURL(SearchObject searchObject) {
+        pageElements.accesUrl(searchObject.getUrl());
+        LoggerUtility.info("The user accesses following URL: " + searchObject.getUrl() + " .");
     }
 
     public void validateEmptySearch(SearchObject searchObject) {
@@ -183,12 +168,12 @@ public class SearchPage extends BasePage {
         LoggerUtility.info("The focus is changed on base context of the page.");
     }
 
-    public void validateInvalidSearch(SearchObject searchObject){
+    public void validateInvalidSearch(SearchObject searchObject) {
         elementMethods.clickElement(searchBox);
         LoggerUtility.info("The user is clicking on search box.");
-        elementMethods.fillElement(searchBox,searchObject.getInvalidSearch(),Keys.ENTER);
+        elementMethods.fillElement(searchBox, searchObject.getInvalidSearch(), Keys.ENTER);
         LoggerUtility.info("The user enters invalid search, then presses ENTER.");
-        Assert.assertTrue(warningSearch.isDisplayed(),"The warning message is not displayed.");
+        Assert.assertTrue(warningSearch.isDisplayed(), "The warning message is not displayed.");
         LoggerUtility.info("The search warning is displayed and validated with success. ");
     }
 
@@ -197,18 +182,18 @@ public class SearchPage extends BasePage {
         LoggerUtility.info("The user is deleting search input.");
     }
 
-    public void validateAdvancedSearch(SearchObject searchObject){
-        elementMethods.fillElement(deleteSearch,searchObject.getSearchBoxInput());
-        LoggerUtility.info("The user fills search field with value:" +searchObject.getSearchBoxInput() + " .");
+    public void validateAdvancedSearch(SearchObject searchObject) {
+        elementMethods.fillElement(deleteSearch, searchObject.getSearchBoxInput());
+        LoggerUtility.info("The user fills search field with value:" + searchObject.getSearchBoxInput() + " .");
         elementMethods.clickElement(advancedSearchBox);
         LoggerUtility.info("The user ticks the advanced search box.");
-        elementMethods.dropDownInterract(categoryDropDown,4);
+        elementMethods.dropDownInterract(categoryDropDown, 4);
         LoggerUtility.info("The user clicks on the fourth result of category dropdown.");
         elementMethods.clickElement(checkboxAutomaticallySearchSubCategory);
         LoggerUtility.info("The user ticks the automatically search subcategory box.");
         elementMethods.clickElement(advancedSearchButton);
         LoggerUtility.info("The user clicks on search button.");
-        elementMethods.validatePresence(noProductFoundMessage);
-        LoggerUtility.info("The message shown has been validated: " +searchObject.getNoProductFoundMessage());
+        elementMethods.validatePresenceElement(noProductFoundMessage);
+        LoggerUtility.info("The message shown has been validated: " + searchObject.getNoProductFoundMessage());
     }
 }

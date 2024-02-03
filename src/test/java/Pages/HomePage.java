@@ -36,19 +36,31 @@ public class HomePage extends BasePage {
     @FindBy(xpath = ".//div[@id='nivo-slider']//img[contains(@class, 'nivo-main-image')]")
     private List<WebElement> sliderImages;
 
+    @FindBy(xpath = "//div//ul[1]/li[2]//a[contains(text(),'Electronics')]")
+    private WebElement electronicsCategory;
+
+    @FindBy(xpath = "//div[contains(@class,'header-menu')]/ul[1]//li[2]//a[contains(text(),'Camera & photo')]")
+    private WebElement cameraAndPhotoSubcategory;
+
     public void validateHomePage(HomepageObject homepageObject) {
-        elementMethods.validatePresence(logo);
+        elementMethods.validatePresenceElement(logo);
         LoggerUtility.info("The logo has been identified.");
-        elementMethods.validatePresence(productsmenu);
+        elementMethods.validatePresenceElement(productsmenu);
         LoggerUtility.info("The products menu has been identified.");
         elementMethods.validateBannerImages(sliderElement, sliderImages);
         LoggerUtility.info("The banner slider has been validated with success.");
         elementMethods.validateMessage(welcomeMessage, homepageObject.getWelcomeMessage());
         LoggerUtility.info("The welcome message has been identified: " + homepageObject.getWelcomeMessage());
-        elementMethods.scrollByPixel(0, 200);
+        pageElements.scrollByPixel(0, 200);
         LoggerUtility.info("Scrolling down by 200 pixels.");
         elementMethods.validateMessage(featuredProductsMessage, homepageObject.getFeaturedProductsMessage());
         LoggerUtility.info("The welcome featured products message has been identified: " + homepageObject.getFeaturedProductsMessage());
     }
 
+    public void electronicsInterract(){
+        elementMethods.hover(electronicsCategory);
+        LoggerUtility.info("The user hovers the mouse over the element :" +electronicsCategory.getText() +" .");
+        elementMethods.clickElement(cameraAndPhotoSubcategory);
+        LoggerUtility.info("The user clicks on the first result of subcategory.");
+    }
 }

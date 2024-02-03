@@ -1,7 +1,6 @@
 package Tests;
 
 import ObjectData.SearchObject;
-import Pages.HomePage;
 import Pages.Search.SearchPage;
 import ShareData.Hooks;
 import org.testng.annotations.Test;

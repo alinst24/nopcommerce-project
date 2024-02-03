@@ -1,8 +1,8 @@
 package HelpMethods;
 
-import LoggerUtility.LoggerUtility;
-import com.beust.ah.A;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,6 +10,7 @@ import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ElementMethods {
 
@@ -21,10 +22,21 @@ public class ElementMethods {
 
     public void waitVisibleElement(WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOf(element));
+        wait.until(ExpectedConditions.visibilityOf(element));                         //Un element poate fi vizibil dar nu si clickable
     }
 
-    public void validatePresence(WebElement element) {
+    public void waitVisibleAndClickableElement(WebDriver driver, WebElement element) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.and(ExpectedConditions.visibilityOf(element),ExpectedConditions.elementToBeClickable(element)));      // metoda folosita pentru a astepta vizibilitatea si capacitatea de a da click pe un element
+    }
+
+    public void clickJSelement(WebElement element){
+        waitVisibleElement(element);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", element);
+    }
+
+    public void validatePresenceElement(WebElement element) {
         waitVisibleElement(element);
         Assert.assertTrue(element.isDisplayed());
     }
@@ -35,29 +47,24 @@ public class ElementMethods {
         Assert.assertEquals(actualMessage, value);
     }
 
-    public void scrollByPixel(Integer x, Integer y) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(" + x + "," + y + ")", "");
-    }
-
     public void clickElement(WebElement element) {
         waitVisibleElement(element);
         element.click();
     }
 
-    public void fillElement(WebElement element,String value,Keys keyboardButton) {
+    public void fillElement(WebElement element, String value, Keys keyboardButton) {
         waitVisibleElement(element);
         element.sendKeys(value);
         element.sendKeys(keyboardButton);
     }
 
-    public void fillElement(WebElement element,String value,WebElement element2) {
+    public void fillElement(WebElement element, String value, WebElement element2) {
         waitVisibleElement(element);
         element.sendKeys(value);
         element2.click();
     }
 
-    public void fillElement(WebElement element,String value) {
+    public void fillElement(WebElement element, String value) {
         waitVisibleElement(element);
         element.sendKeys(value);
     }
@@ -65,10 +72,6 @@ public class ElementMethods {
     public void validateTable(String elementValue, Integer expectedResults) {
         List<WebElement> elementsList = driver.findElements(By.cssSelector(elementValue));
         Assert.assertEquals(elementsList.size(), expectedResults, "The table does not contain the exact amount of results.");
-    }
-
-    public void clickBack() {
-        driver.navigate().back();
     }
 
     public void validateBannerImages(WebElement sliderElement, List<WebElement> sliderImages) {
@@ -91,19 +94,21 @@ public class ElementMethods {
         Assert.fail("No image named: banner_01 or banner_02 has been found in slider");
     }
 
-    public void accesUrl(String urlValue){
-        driver.navigate().to(urlValue);
-    }
-
-    public void deleteContextElement(WebElement element){
+    public void deleteContextElement(WebElement element) {
         waitVisibleElement(element);
         element.clear();
     }
 
-    public void dropDownInterract(WebElement element,Integer index){
+    public void dropDownInterract(WebElement element, Integer index) {
         waitVisibleElement(element);
         Select dropdown = new Select(element);
         dropdown.selectByIndex(index);
+    }
+
+    public void hover(WebElement element){
+        waitVisibleElement(element);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).perform();
     }
 }
 

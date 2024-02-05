@@ -1,6 +1,7 @@
 package Pages.ProductCart;
 
 import LoggerUtility.LoggerUtility;
+import ObjectData.ProductCartObject;
 import Pages.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -47,7 +48,7 @@ public class ProductCartPage extends BasePage {
         LoggerUtility.info("The user closes the displayed message.");
     }
 
-    public void cartValidation(){
+    public void cartValidation(ProductCartObject productCartObject){
         elementMethods.clickJSelement(cart);
         LoggerUtility.info("The user clicks on shopping cart.");
         elementMethods.validatePresenceElement(addedtoCartProduct);
@@ -56,8 +57,8 @@ public class ProductCartPage extends BasePage {
         LoggerUtility.info("The updated total price has been validated with success.");
         elementMethods.dropDownInterract(giftWrapping,1);
         LoggerUtility.info("The user selects gift wrapping option(YES).");
-        elementMethods.fillElement(enterCoupon,"reducere");
-        LoggerUtility.info("The user enters a invalid coupon code.");
+        elementMethods.fillElement(enterCoupon,productCartObject.getCupon());
+        LoggerUtility.info("The user enters the coupon code : " +productCartObject.getCupon()+" .");
         elementMethods.clickElement(applyCoupon);
         LoggerUtility.info("The user clicks on APPLY COUPON.");
         elementMethods.validatePresenceElement(failureCouponMessage);
@@ -66,12 +67,12 @@ public class ProductCartPage extends BasePage {
         LoggerUtility.info("The updated total price with gift wrap option has been validated with success.");
     }
 
-    public void checkoutProducts(){
+    public void checkoutProducts(ProductCartObject productCartObject){
         elementMethods.clickElement(termsofservice);
         LoggerUtility.info("The user ticks the box of terms and conditions.");
         elementMethods.clickElement(checkoutButton);
         LoggerUtility.info("The user clicks on Checkout Button.");
-        pageElements.validatePage("https://demo.nopcommerce.com/login/checkoutasguest?returnUrl=%2Fcart");
-        LoggerUtility.info("The redirection URL has been validated.");
+        pageMethods.validatePage(productCartObject.getUrl());
+        LoggerUtility.info("The redirection URL has been validated: "+productCartObject.getUrl());
     }
 }

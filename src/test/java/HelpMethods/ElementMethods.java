@@ -1,5 +1,6 @@
 package HelpMethods;
 
+import ObjectData.RegisterPageObject;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -45,6 +46,12 @@ public class ElementMethods {
         waitVisibleElement(element);
         String actualMessage = element.getText();
         Assert.assertEquals(actualMessage, value);
+    }
+
+    public void validateElementValue(WebElement element,String expectedValue){
+        waitVisibleElement(element);
+        String elementValue=element.getAttribute("value");
+        Assert.assertEquals(elementValue,expectedValue,"The values are not the same.");
     }
 
     public void clickElement(WebElement element) {

@@ -1,7 +1,6 @@
 package Pages.Search;
 
 import LoggerUtility.LoggerUtility;
-import ObjectData.HomepageObject;
 import ObjectData.SearchObject;
 import Pages.BasePage;
 import org.openqa.selenium.Alert;
@@ -91,7 +90,7 @@ public class SearchPage extends BasePage {
         LoggerUtility.info("The user enters the value: " + searchObject.getSearchBoxInput() + " then clicks on the first result of the suggestions.");
         elementMethods.validateMessage(firstSearchResultTitle, searchObject.getProduct1Title());
         LoggerUtility.info("The user product's title has been validated.");
-        pageElements.clickBack();
+        pageMethods.clickBack();
         LoggerUtility.info("The user returns to previous page.");
     }
 
@@ -117,7 +116,7 @@ public class SearchPage extends BasePage {
         LoggerUtility.info("The product's name has been validated with success.");
         elementMethods.validatePresenceElement(product1image);
         LoggerUtility.info("The image of this product has been validated with success.");
-        pageElements.clickBack();
+        pageMethods.clickBack();
         LoggerUtility.info("The user returns to previous page.");
     }
 
@@ -131,7 +130,7 @@ public class SearchPage extends BasePage {
         LoggerUtility.info("The product's name has been validated with success.");
         elementMethods.validatePresenceElement(product2image);
         LoggerUtility.info("The image of this product has been validated with success.");
-        pageElements.clickBack();
+        pageMethods.clickBack();
         LoggerUtility.info("The user returns to previous page.");
     }
 
@@ -145,12 +144,12 @@ public class SearchPage extends BasePage {
         LoggerUtility.info("The product's name has been validated with success.");
         elementMethods.validatePresenceElement(product3image);
         LoggerUtility.info("The image of this product has been validated with success.");
-        pageElements.clickBack();
+        pageMethods.clickBack();
         LoggerUtility.info("The user returns to previous page.");
     }
 
     public void accessURL(SearchObject searchObject) {
-        pageElements.accesUrl(searchObject.getUrl());
+        pageMethods.accesUrl(searchObject.getUrl());
         LoggerUtility.info("The user accesses following URL: " + searchObject.getUrl() + " .");
     }
 

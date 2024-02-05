@@ -8,11 +8,11 @@ import org.testng.Assert;
 
 import java.time.Duration;
 
-public class PageElements {
+public class PageMethods {
 
     private WebDriver driver;
 
-    public PageElements(WebDriver driver){
+    public PageMethods(WebDriver driver){
         this.driver=driver;
     }
 

@@ -2,13 +2,9 @@ package Pages;
 
 import LoggerUtility.LoggerUtility;
 import ObjectData.HomepageObject;
-import ObjectData.SearchObject;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 
 import java.util.List;
 
@@ -42,6 +38,12 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'header-menu')]/ul[1]//li[2]//a[contains(text(),'Camera & photo')]")
     private WebElement cameraAndPhotoSubcategory;
 
+    @FindBy(css = "a[class='ico-register']")
+    private WebElement register;
+
+    @FindBy(className = "ico-account")
+    private WebElement myAccount;
+
     public void validateHomePage(HomepageObject homepageObject) {
         elementMethods.validatePresenceElement(logo);
         LoggerUtility.info("The logo has been identified.");
@@ -51,7 +53,7 @@ public class HomePage extends BasePage {
         LoggerUtility.info("The banner slider has been validated with success.");
         elementMethods.validateMessage(welcomeMessage, homepageObject.getWelcomeMessage());
         LoggerUtility.info("The welcome message has been identified: " + homepageObject.getWelcomeMessage());
-        pageElements.scrollByPixel(0, 200);
+        pageMethods.scrollByPixel(0, 200);
         LoggerUtility.info("Scrolling down by 200 pixels.");
         elementMethods.validateMessage(featuredProductsMessage, homepageObject.getFeaturedProductsMessage());
         LoggerUtility.info("The welcome featured products message has been identified: " + homepageObject.getFeaturedProductsMessage());
@@ -62,5 +64,15 @@ public class HomePage extends BasePage {
         LoggerUtility.info("The user hovers the mouse over the element :" +electronicsCategory.getText() +" .");
         elementMethods.clickElement(cameraAndPhotoSubcategory);
         LoggerUtility.info("The user clicks on the first result of subcategory.");
+    }
+
+    public void registerInterract(){
+        elementMethods.clickJSelement(register);
+        LoggerUtility.info("The user clicks on the register button.");
+    }
+
+    public void myAccountInterract(){
+        elementMethods.clickElement(myAccount);
+        LoggerUtility.info("The user clicks on my account button.");
     }
 }
